@@ -298,11 +298,19 @@ export const FraudResults = ({ onBack, scenario }: FraudResultsProps) => {
 
         {/* Action Buttons */}
         <div className="flex items-center justify-center gap-4 pt-6">
-          <Button onClick={onBack} size="lg" className="shadow-fraud">
+          <Button 
+            onClick={onBack} 
+            size="lg" 
+            className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-fraud"
+          >
             <ArrowLeft className="h-5 w-5 mr-2" />
             Run Another Analysis
           </Button>
-          <Button variant="outline" size="lg">
+          <Button 
+            variant="outline" 
+            size="lg"
+            className="border-primary text-primary hover:bg-primary/10 hover:text-primary shadow-sm"
+          >
             <FileText className="h-5 w-5 mr-2" />
             Export Report
           </Button>

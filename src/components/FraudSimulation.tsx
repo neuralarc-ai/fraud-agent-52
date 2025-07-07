@@ -192,13 +192,14 @@ REQUEST: Immediate investigation and response protocol activation.`
         if (prev >= agentConversation.length - 1) {
           clearInterval(timer);
           setTimeout(() => {
-            setShowResults(true);
-          }, 1000);
+            setShowAgentDialog(false);
+            onRunAnalysis(scenario); // This will navigate to results page
+          }, 2000);
           return prev;
         }
         return prev + 1;
       });
-    }, 800); // Faster conversation
+    }, 800);
   };
 
   const resetAnalysis = () => {
@@ -420,117 +421,17 @@ REQUEST: Immediate investigation and response protocol activation.`
                 </div>
               )}
               
-              {showResults && (
-                <div className="space-y-6 mt-6 p-6 bg-gradient-alert rounded-lg animate-fade-in">
-                  {/* Fraud Detection Results */}
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-2 mb-4">
-                      <div className="p-3 bg-critical/20 rounded-full">
-                        <AlertTriangle className="h-8 w-8 text-white animate-pulse-critical" />
-                      </div>
-                      <h2 className="text-2xl font-bold text-white">FRAUD CONFIRMED</h2>
-                    </div>
-                    <p className="text-white/90 text-lg">
-                      Organized criminal operation detected - Immediate action required
-                    </p>
+              {analysisStep >= agentConversation.length - 1 && (
+                <div className="text-center p-6">
+                  <div className="flex items-center justify-center gap-2 text-success mb-4">
+                    <CheckCircle className="h-8 w-8" />
+                    <span className="text-2xl font-bold">Analysis Complete</span>
                   </div>
-
-                  {/* Key Findings */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Card className="bg-white/10 border-white/20">
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold text-white mb-3 flex items-center gap-2">
-                          <CheckCircle className="h-5 w-5 text-success" />
-                          Confirmed Details
-                        </h3>
-                        <ul className="space-y-2 text-sm text-white/90">
-                          <li>• Total fraudulent amount: $127,500</li>
-                          <li>• 4 business accounts compromised</li>
-                          <li>• Payment processor breach identified</li>
-                          <li>• Federal jurisdiction case</li>
-                          <li>• 95% recovery probability</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="bg-white/10 border-white/20">
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold text-white mb-3 flex items-center gap-2">
-                          <XCircle className="h-5 w-5 text-critical" />
-                          Risk Factors
-                        </h3>
-                        <ul className="space-y-2 text-sm text-white/90">
-                          <li>• Sophisticated organized crime</li>
-                          <li>• Inside knowledge exploitation</li>
-                          <li>• Multi-state operation</li>
-                          <li>• Business disruption potential</li>
-                          <li>• Regulatory compliance required</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  {/* Action Summary */}
-                  <Card className="bg-white/10 border-white/20">
-                    <CardContent className="p-4">
-                      <h3 className="font-semibold text-white mb-3">Immediate Actions Taken</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-white/90">
-                        <div>
-                          <p className="font-medium mb-2">Security</p>
-                          <ul className="space-y-1">
-                            <li>✓ Accounts secured</li>
-                            <li>✓ Cards suspended</li>
-                            <li>✓ Monitoring enhanced</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <p className="font-medium mb-2">Legal/Compliance</p>
-                          <ul className="space-y-1">
-                            <li>✓ FBI notified</li>
-                            <li>✓ SAR filing initiated</li>
-                            <li>✓ Documentation secured</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <p className="font-medium mb-2">Customer Care</p>
-                          <ul className="space-y-1">
-                            <li>✓ Customers contacted</li>
-                            <li>✓ Business continuity maintained</li>
-                            <li>✓ Recovery process started</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Action Buttons */}
-                  <div className="flex items-center justify-center gap-4 pt-4">
-                    <Button 
-                      onClick={viewDashboard}
-                      size="lg"
-                      className="bg-white text-primary hover:bg-white/90"
-                    >
-                      <AlertTriangle className="h-5 w-5 mr-2" />
-                      View Investigation Dashboard
-                    </Button>
-                    <Button 
-                      onClick={() => window.open("/", "_blank")}
-                      variant="outline"
-                      size="lg"
-                      className="border-white/20 text-white hover:bg-white/10"
-                    >
-                      <ExternalLink className="h-5 w-5 mr-2" />
-                      Open in New Window
-                    </Button>
-                    <Button 
-                      onClick={resetAnalysis}
-                      variant="outline"
-                      size="lg"
-                      className="border-white/20 text-white hover:bg-white/10"
-                    >
-                      <RefreshCw className="h-5 w-5 mr-2" />
-                      New Analysis
-                    </Button>
+                  <p className="text-lg text-muted-foreground mb-4">
+                    Investigation completed successfully. Redirecting to results page...
+                  </p>
+                  <div className="flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                   </div>
                 </div>
               )}
