@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Play, Copy, MessageSquare, AlertTriangle, Brain, Users } from "lucide-react";
+import { Play, Copy, MessageSquare, AlertTriangle, Brain, Users, RefreshCw, CheckCircle, XCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface SimulationProps {
@@ -16,6 +16,7 @@ export const FraudSimulation = ({ onRunAnalysis }: SimulationProps) => {
   const [customScenario, setCustomScenario] = useState("");
   const [showAgentDialog, setShowAgentDialog] = useState(false);
   const [analysisStep, setAnalysisStep] = useState(0);
+  const [showResults, setShowResults] = useState(false);
   const { toast } = useToast();
 
   const sampleScenarios = [
@@ -45,35 +46,78 @@ export const FraudSimulation = ({ onRunAnalysis }: SimulationProps) => {
   const agentConversation = [
     {
       agent: "System Orchestrator",
-      message: "FRAUD ALERT ACTIVATED - Priority Level: HIGH. Multiple suspicious cash withdrawals detected across 4 business accounts totaling $127,500. Activating Fraud Response Team.",
-      timestamp: "14:23:15"
+      message: "🚨 FRAUD ALERT ACTIVATED - Priority Level: HIGH. Multiple suspicious cash withdrawals detected across 4 business accounts totaling $127,500. Geographic anomalies spanning 80-365 miles from normal locations. Activating Fraud Response Team immediately.",
+      timestamp: "14:23:15",
+      type: "system"
     },
     {
       agent: "James (Fraud Detection)",
-      message: "Confirmed organized fraud pattern. Geographic anomalies 80-365 miles from normal locations. Amounts 3-6x normal patterns. All transactions within 6-hour window. Structuring indicators present.",
-      timestamp: "14:25:33"
+      message: "Initial pattern analysis complete. I'm seeing a sophisticated, coordinated attack. All transactions occurred within a 6-hour window - this isn't random. The amounts are strategically under $25,000, suggesting knowledge of reporting thresholds. Geographic spread indicates either stolen cards or insider knowledge of customer travel patterns.",
+      timestamp: "14:25:33",
+      type: "analysis"
     },
     {
       agent: "Robert (Risk Assessment)",
-      message: "Institutional exposure: $127,500 direct. Monitoring 23 similar accounts. Reputational risk HIGH - 4 long-term customers affected. Regulatory compliance required.",
-      timestamp: "14:27:18"
+      message: "James, your analysis aligns with our threat models. I'm calculating total institutional exposure at $127,500 direct, but potential reputational damage could be 10x that amount. These are our premium business customers - average relationship length 7.5 years. I'm immediately implementing account freezes while preserving critical business operations.",
+      timestamp: "14:27:18",
+      type: "risk"
     },
     {
       agent: "Lisa (Legal Compliance)",
-      message: "SAR filing required within 30 days. FBI notification needed. Regulation CC obligations triggered. All regulatory timelines being met.",
-      timestamp: "14:28:45"
+      message: "Regulatory implications are significant here. Under BSA requirements, we have 30 days for SAR filing, but given the coordinated nature, I'm expediting FBI notification. The geographic spread across state lines elevates this to federal jurisdiction. I'm also reviewing our liability exposure under Regulation CC.",
+      timestamp: "14:28:45",
+      type: "legal"
     },
     {
       agent: "Diana (Customer Experience)",
-      message: "Customer contact strategy implemented. Verifying transactions with business owners while preserving relationships. 4 high-value customers require careful handling.",
-      timestamp: "14:29:12"
+      message: "Customer impact mitigation is my priority. I've reviewed all 4 accounts - these are long-standing, high-value relationships. Metro Construction has payroll processing tomorrow, Riverside Medical has vendor payments due. I'm implementing surgical account restrictions to stop fraud while maintaining business continuity.",
+      timestamp: "14:29:12",
+      type: "customer"
     },
     {
       agent: "Carlos (Customer Support)",
-      message: "Account security measures active. Cards suspended, monitoring enhanced. Business operations protected - payroll and vendor payments maintained.",
-      timestamp: "14:30:07"
+      message: "Security measures are now active across all accounts. Debit cards suspended, transaction monitoring at maximum sensitivity. However, I've white-listed payroll processors and critical vendors. Emergency access protocols established for legitimate business needs. All branch locations have been alerted with photos and account details.",
+      timestamp: "14:30:07",
+      type: "security"
+    },
+    {
+      agent: "James (Fraud Detection)",
+      message: "BREAKTHROUGH: Cross-referencing transaction data with recent security breaches... I found the source! A payment processor used by all 4 businesses was compromised 3 weeks ago. The criminals have been planning this systematically. This explains the inside knowledge of customer patterns.",
+      timestamp: "14:32:15",
+      type: "breakthrough"
+    },
+    {
+      agent: "System Orchestrator",
+      message: "✅ FRAUD CONFIRMED - Organized criminal operation leveraging compromised payment processor data. Total confirmed fraudulent amount: $127,500. All accounts secured, customers contacted, law enforcement notified. Estimated recovery: 95% through insurance and rapid response. Case escalated to federal cybercrime task force.",
+      timestamp: "14:35:22",
+      type: "conclusion"
     }
   ];
+
+  const sampleForm = {
+    title: "Quick Test - Business Account Fraud",
+    content: `FRAUD ALERT: Suspicious transactions detected on multiple business accounts
+
+ACCOUNT DETAILS:
+- Metro Construction LLC (****-4521): $27,000 withdrawn from Dallas & Houston branches
+- Riverside Medical Group (****-7892): $43,000 withdrawn from San Antonio & Waco  
+- TechFlow Solutions (****-3156): $30,500 withdrawn from Fort Worth & Corpus Christi
+- Lone Star Catering (****-9847): $27,000 withdrawn from El Paso & Lubbock
+
+ANOMALY INDICATORS:
+• Geographic: All locations 80-365 miles from normal patterns
+• Temporal: All transactions within 6-hour window (08:30-15:15)
+• Behavioral: Amounts 3-6x normal withdrawal patterns
+• Structural: All amounts under $25,000 reporting threshold
+
+RISK FACTORS:
+- Total exposure: $127,500
+- Customer relationship impact: 4 long-term business accounts (4-12 years)
+- Operational impact: Payroll and vendor payment disruptions possible
+- Regulatory: BSA/AML reporting requirements triggered
+
+REQUEST: Immediate investigation and response protocol activation.`
+  };
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -96,6 +140,7 @@ export const FraudSimulation = ({ onRunAnalysis }: SimulationProps) => {
 
     setShowAgentDialog(true);
     setAnalysisStep(0);
+    setShowResults(false);
     
     // Simulate agent conversation progression
     const timer = setInterval(() => {
@@ -103,14 +148,27 @@ export const FraudSimulation = ({ onRunAnalysis }: SimulationProps) => {
         if (prev >= agentConversation.length - 1) {
           clearInterval(timer);
           setTimeout(() => {
-            setShowAgentDialog(false);
-            onRunAnalysis(scenario);
-          }, 2000);
+            setShowResults(true);
+          }, 1000);
           return prev;
         }
         return prev + 1;
       });
-    }, 1500);
+    }, 800); // Faster conversation
+  };
+
+  const resetAnalysis = () => {
+    setShowAgentDialog(false);
+    setShowResults(false);
+    setAnalysisStep(0);
+    setSelectedScenario("");
+    setCustomScenario("");
+  };
+
+  const viewDashboard = () => {
+    const scenario = selectedScenario || customScenario;
+    setShowAgentDialog(false);
+    onRunAnalysis(scenario);
   };
 
   return (
@@ -193,6 +251,33 @@ export const FraudSimulation = ({ onRunAnalysis }: SimulationProps) => {
               onChange={(e) => setCustomScenario(e.target.value)}
               className="min-h-[100px]"
             />
+            
+            {/* Sample Form for Quick Testing */}
+            <div className="mt-4 p-4 bg-muted/30 rounded-lg border border-dashed border-border">
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="font-semibold text-sm text-foreground">{sampleForm.title}</h4>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => copyToClipboard(sampleForm.content)}
+                  >
+                    <Copy className="h-3 w-3 mr-1" />
+                    Copy
+                  </Button>
+                  <Button 
+                    variant="secondary" 
+                    size="sm"
+                    onClick={() => setCustomScenario(sampleForm.content)}
+                  >
+                    Use This Form
+                  </Button>
+                </div>
+              </div>
+              <div className="text-xs text-muted-foreground bg-card p-3 rounded border font-mono whitespace-pre-line">
+                {sampleForm.content}
+              </div>
+            </div>
           </CardContent>
         </Card>
 
@@ -266,15 +351,109 @@ export const FraudSimulation = ({ onRunAnalysis }: SimulationProps) => {
                 </div>
               )}
               
-              {analysisStep >= agentConversation.length - 1 && (
-                <div className="text-center p-4">
-                  <div className="flex items-center justify-center gap-2 text-success mb-2">
-                    <AlertTriangle className="h-5 w-5" />
-                    <span className="font-semibold">Analysis Complete</span>
+              {showResults && (
+                <div className="space-y-6 mt-6 p-6 bg-gradient-alert rounded-lg animate-fade-in">
+                  {/* Fraud Detection Results */}
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-2 mb-4">
+                      <div className="p-3 bg-critical/20 rounded-full">
+                        <AlertTriangle className="h-8 w-8 text-white animate-pulse-critical" />
+                      </div>
+                      <h2 className="text-2xl font-bold text-white">FRAUD CONFIRMED</h2>
+                    </div>
+                    <p className="text-white/90 text-lg">
+                      Organized criminal operation detected - Immediate action required
+                    </p>
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    Redirecting to fraud investigation dashboard...
-                  </p>
+
+                  {/* Key Findings */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Card className="bg-white/10 border-white/20">
+                      <CardContent className="p-4">
+                        <h3 className="font-semibold text-white mb-3 flex items-center gap-2">
+                          <CheckCircle className="h-5 w-5 text-success" />
+                          Confirmed Details
+                        </h3>
+                        <ul className="space-y-2 text-sm text-white/90">
+                          <li>• Total fraudulent amount: $127,500</li>
+                          <li>• 4 business accounts compromised</li>
+                          <li>• Payment processor breach identified</li>
+                          <li>• Federal jurisdiction case</li>
+                          <li>• 95% recovery probability</li>
+                        </ul>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="bg-white/10 border-white/20">
+                      <CardContent className="p-4">
+                        <h3 className="font-semibold text-white mb-3 flex items-center gap-2">
+                          <XCircle className="h-5 w-5 text-critical" />
+                          Risk Factors
+                        </h3>
+                        <ul className="space-y-2 text-sm text-white/90">
+                          <li>• Sophisticated organized crime</li>
+                          <li>• Inside knowledge exploitation</li>
+                          <li>• Multi-state operation</li>
+                          <li>• Business disruption potential</li>
+                          <li>• Regulatory compliance required</li>
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {/* Action Summary */}
+                  <Card className="bg-white/10 border-white/20">
+                    <CardContent className="p-4">
+                      <h3 className="font-semibold text-white mb-3">Immediate Actions Taken</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-white/90">
+                        <div>
+                          <p className="font-medium mb-2">Security</p>
+                          <ul className="space-y-1">
+                            <li>✓ Accounts secured</li>
+                            <li>✓ Cards suspended</li>
+                            <li>✓ Monitoring enhanced</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <p className="font-medium mb-2">Legal/Compliance</p>
+                          <ul className="space-y-1">
+                            <li>✓ FBI notified</li>
+                            <li>✓ SAR filing initiated</li>
+                            <li>✓ Documentation secured</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <p className="font-medium mb-2">Customer Care</p>
+                          <ul className="space-y-1">
+                            <li>✓ Customers contacted</li>
+                            <li>✓ Business continuity maintained</li>
+                            <li>✓ Recovery process started</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Action Buttons */}
+                  <div className="flex items-center justify-center gap-4 pt-4">
+                    <Button 
+                      onClick={viewDashboard}
+                      size="lg"
+                      className="bg-white text-primary hover:bg-white/90"
+                    >
+                      <AlertTriangle className="h-5 w-5 mr-2" />
+                      View Full Investigation Dashboard
+                    </Button>
+                    <Button 
+                      onClick={resetAnalysis}
+                      variant="outline"
+                      size="lg"
+                      className="border-white/20 text-white hover:bg-white/10"
+                    >
+                      <RefreshCw className="h-5 w-5 mr-2" />
+                      Start New Analysis
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>
