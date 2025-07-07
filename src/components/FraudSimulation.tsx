@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Play, Copy, MessageSquare, AlertTriangle, Brain, Users, RefreshCw, CheckCircle, XCircle, ExternalLink } from "lucide-react";
+import { Play, Copy, MessageSquare, AlertTriangle, Shield, Users, RefreshCw, CheckCircle, XCircle, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface SimulationProps {
@@ -228,7 +228,7 @@ REQUEST: Immediate investigation and response protocol activation.`
           <div className="relative z-10 text-center space-y-6">
             <div className="flex items-center justify-center gap-4">
               <div className="p-4 bg-white/20 backdrop-blur-sm rounded-2xl shadow-elegant">
-                <Brain className="h-12 w-12 text-white" />
+                <Shield className="h-12 w-12 text-white" />
               </div>
               <div className="text-left">
                 <h1 className="text-4xl font-bold text-white mb-2">AI Fraud Detection Simulation</h1>
