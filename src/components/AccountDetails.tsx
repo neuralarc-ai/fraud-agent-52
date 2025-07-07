@@ -95,9 +95,9 @@ export const AccountDetails = () => {
         </Badge>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-7xl mx-auto">
         {suspiciousAccounts.map((account, index) => (
-          <Card key={index} className="relative overflow-hidden">
+          <Card key={index} className="relative overflow-hidden border-0 shadow-elegant bg-white">
             <div className={`absolute top-0 left-0 w-full h-1 bg-${getRiskColor(account.riskLevel)}`} />
             
             <CardHeader>

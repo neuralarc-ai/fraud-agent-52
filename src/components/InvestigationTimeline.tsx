@@ -131,7 +131,7 @@ export const InvestigationTimeline = () => {
         </Badge>
       </div>
 
-      <Card>
+      <Card className="border-0 shadow-elegant bg-white">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Clock className="h-5 w-5 text-primary" />
@@ -196,7 +196,7 @@ export const InvestigationTimeline = () => {
       </Card>
 
       {/* Next Steps */}
-      <Card>
+      <Card className="border-0 shadow-elegant bg-white">
         <CardHeader>
           <CardTitle>Immediate Next Steps (24-48 Hours)</CardTitle>
         </CardHeader>

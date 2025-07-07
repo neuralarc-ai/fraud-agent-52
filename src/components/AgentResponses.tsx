@@ -138,11 +138,11 @@ export const AgentResponses = () => {
         </Badge>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl mx-auto">
         {agents.map((agent, index) => {
           const IconComponent = agent.icon;
           return (
-            <Card key={index} className="relative h-full">
+            <Card key={index} className="relative h-full border-0 shadow-elegant bg-white">
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">

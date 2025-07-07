@@ -54,51 +54,87 @@ export const FraudSimulation = ({ onRunAnalysis }: SimulationProps) => {
   const agentConversation = [
     {
       agent: "System Orchestrator",
-      message: "🚨 FRAUD ALERT ACTIVATED - Priority Level: HIGH. Multiple suspicious cash withdrawals detected across 4 business accounts totaling $127,500. Geographic anomalies spanning 80-365 miles from normal locations. Activating Fraud Response Team immediately.",
+      message: "🚨 FRAUD ALERT ACTIVATED - Priority Level: HIGH. Initiating emergency response protocol. Multiple suspicious cash withdrawals detected across 4 business accounts totaling $127,500. Geographic anomalies spanning 80-365 miles from normal locations. All hands on deck - activating specialized Fraud Response Team immediately.",
       timestamp: "14:23:15",
-      type: "system"
+      type: "system",
+      avatar: "🤖"
     },
     {
-      agent: "James (Fraud Detection)",
-      message: "Initial pattern analysis complete. I'm seeing a sophisticated, coordinated attack. All transactions occurred within a 6-hour window - this isn't random. The amounts are strategically under $25,000, suggesting knowledge of reporting thresholds. Geographic spread indicates either stolen cards or insider knowledge of customer travel patterns.",
+      agent: "James (Fraud Detection Specialist)",
+      message: "Taking lead on pattern analysis. Initial scan reveals this is NOT random - we're dealing with a sophisticated, coordinated attack. All transactions occurred within a 6-hour window between 08:30-15:15. The amounts are strategically under $25,000, showing clear knowledge of BSA reporting thresholds. Geographic spread across Texas indicates either systematic card cloning or insider knowledge of customer travel patterns. This bears hallmarks of organized crime.",
       timestamp: "14:25:33",
-      type: "analysis"
+      type: "analysis",
+      avatar: "🔍"
     },
     {
-      agent: "Robert (Risk Assessment)",
-      message: "James, your analysis aligns with our threat models. I'm calculating total institutional exposure at $127,500 direct, but potential reputational damage could be 10x that amount. These are our premium business customers - average relationship length 7.5 years. I'm immediately implementing account freezes while preserving critical business operations.",
+      agent: "Robert (Risk Assessment Agent)",
+      message: "James, your analysis is spot-on. Risk exposure is CRITICAL. I'm calculating total institutional exposure at $127,500 direct, but potential reputational damage could reach $1.2M if not handled properly. These aren't random targets - Metro Construction (8-year relationship), Riverside Medical (12 years), TechFlow (4 years), Lone Star Catering (6 years) - average relationship value $2.3M. Implementing immediate account freezes while preserving critical business operations. Payroll processing for Metro Construction due tomorrow - coordinating surgical restrictions.",
       timestamp: "14:27:18",
-      type: "risk"
+      type: "risk",
+      avatar: "⚠️"
     },
     {
-      agent: "Lisa (Legal Compliance)",
-      message: "Regulatory implications are significant here. Under BSA requirements, we have 30 days for SAR filing, but given the coordinated nature, I'm expediting FBI notification. The geographic spread across state lines elevates this to federal jurisdiction. I'm also reviewing our liability exposure under Regulation CC.",
+      agent: "Lisa (Legal Compliance Agent)",
+      message: "Legal implications are significant. Under BSA Section 5318(g), we have 30 days for SAR filing, but given the coordinated nature and multi-state scope, I'm expediting FBI financial crimes unit notification. Cross-referencing with FinCEN database shows similar patterns in Dallas (2 weeks ago) and Houston (1 month ago). This elevates to federal jurisdiction under 18 USC 1344. Preparing documentation for potential RICO investigation. Our liability exposure under Regulation CC is limited if we follow proper dispute procedures.",
       timestamp: "14:28:45",
-      type: "legal"
+      type: "legal",
+      avatar: "⚖️"
     },
     {
-      agent: "Diana (Customer Experience)",
-      message: "Customer impact mitigation is my priority. I've reviewed all 4 accounts - these are long-standing, high-value relationships. Metro Construction has payroll processing tomorrow, Riverside Medical has vendor payments due. I'm implementing surgical account restrictions to stop fraud while maintaining business continuity.",
+      agent: "Diana (Customer Experience Agent)",
+      message: "Customer impact mitigation is my absolute priority. I've analyzed all 4 accounts - these represent $9.2M in combined relationships. Metro Construction processes $45K weekly payroll, Riverside Medical handles $230K monthly in patient collections, TechFlow manages $180K in vendor payments, Lone Star operates on thin margins with daily cash flow needs. I'm implementing precision account restrictions - stopping fraud while maintaining business lifelines. Direct CEO contact initiated for all affected businesses.",
       timestamp: "14:29:12",
-      type: "customer"
+      type: "customer",
+      avatar: "👥"
     },
     {
-      agent: "Carlos (Customer Support)",
-      message: "Security measures are now active across all accounts. Debit cards suspended, transaction monitoring at maximum sensitivity. However, I've white-listed payroll processors and critical vendors. Emergency access protocols established for legitimate business needs. All branch locations have been alerted with photos and account details.",
+      agent: "Carlos (Customer Support Specialist)",
+      message: "Security fortress is now active. All 4 accounts locked down with military precision. Debit cards neutralized, transaction monitoring at DEFCON 1 level. But here's the critical part - I've white-listed payroll processors, utility payments, and critical vendors. Emergency access protocols established - legitimate business needs can be handled via branch manager override with dual authentication. All 47 Texas branch locations have been alerted with photos, account details, and fraud indicators.",
       timestamp: "14:30:07",
-      type: "security"
+      type: "security",
+      avatar: "🛡️"
     },
     {
-      agent: "James (Fraud Detection)",
-      message: "BREAKTHROUGH: Cross-referencing transaction data with recent security breaches... I found the source! A payment processor used by all 4 businesses was compromised 3 weeks ago. The criminals have been planning this systematically. This explains the inside knowledge of customer patterns.",
+      agent: "James (Fraud Detection Specialist)",
+      message: "🎯 BREAKTHROUGH ALERT! Cross-referencing transaction metadata with recent cybersecurity incidents... FOUND THE SOURCE! SecurePay Solutions - a payment processor used by all 4 businesses - suffered a data breach 3 weeks ago (initially covered up). The criminals have been systematically analyzing customer transaction patterns, identifying optimal withdrawal amounts and locations. This explains the surgical precision of geographic targeting and amount structuring. We're not dealing with random fraud - this is industrial-scale data exploitation!",
       timestamp: "14:32:15",
-      type: "breakthrough"
+      type: "breakthrough",
+      avatar: "💡"
+    },
+    {
+      agent: "Robert (Risk Assessment Agent)",
+      message: "James, that breakthrough changes everything! If SecurePay exposed 4,000+ business customers, we could be looking at the tip of an iceberg. I'm immediately expanding monitoring to all customers using SecurePay (847 accounts, $23M exposure). This systematic approach suggests a 6-8 person operation with IT expertise. Based on attack patterns, estimated criminal profits: $2.3M over 3 weeks. Our rapid response potentially saved $450K in additional planned attacks scheduled for this weekend.",
+      timestamp: "14:33:42",
+      type: "risk",
+      avatar: "📊"
+    },
+    {
+      agent: "Lisa (Legal Compliance Agent)",
+      message: "This SecurePay connection transforms our legal strategy. Under 15 USC 1681n, we have subrogation rights against SecurePay for their negligent data security. I'm immediately filing criminal referrals with FBI Cyber Division and coordinating with Texas Attorney General's office. This is now a multi-jurisdictional cybercrime case. Preparing class-action coordination with other affected institutions. Our customers will be fully compensated - SecurePay faces $50M+ in liability exposure.",
+      timestamp: "14:34:58",
+      type: "legal",
+      avatar: "📋"
+    },
+    {
+      agent: "Diana (Customer Experience Agent)",
+      message: "Customer crisis management protocol executed flawlessly! All 4 business owners contacted and verified - they confirm NO travel, NO authorized large withdrawals. They're actually GRATEFUL for our rapid response. I've arranged emergency bridge financing for any cash flow disruptions, expedited new card delivery (24-hour rush), and scheduled one-on-one security consultations. Customer sentiment: 100% positive. They view us as protectors, not obstacles. This crisis is becoming a relationship strengthener!",
+      timestamp: "14:36:11",
+      type: "customer",
+      avatar: "💪"
+    },
+    {
+      agent: "Carlos (Customer Support Specialist)",
+      message: "Mission accomplished on all fronts! Account fortress remains impenetrable - zero additional fraudulent activity detected. New enhanced security cards with biometric authentication expedited for all customers. I've coordinated with branch managers for white-glove account restoration service. Business operations fully protected: Metro's payroll processing confirmed for tomorrow, Riverside's patient collections uninterrupted, TechFlow's vendor payments secured, Lone Star's daily operations maintained. Customer satisfaction scores through the roof!",
+      timestamp: "14:37:28",
+      type: "security",
+      avatar: "✅"
     },
     {
       agent: "System Orchestrator",
-      message: "✅ FRAUD CONFIRMED - Organized criminal operation leveraging compromised payment processor data. Total confirmed fraudulent amount: $127,500. All accounts secured, customers contacted, law enforcement notified. Estimated recovery: 95% through insurance and rapid response. Case escalated to federal cybercrime task force.",
-      timestamp: "14:35:22",
-      type: "conclusion"
+      message: "🏆 MISSION SUCCESS - FRAUD NEUTRALIZED! Organized criminal operation detected, contained, and neutralized. Total confirmed fraudulent amount: $127,500 - 100% recovery expected through insurance and SecurePay liability. Customer relationships not just preserved but STRENGTHENED. Law enforcement fully engaged, criminal network disruption in progress. Estimated criminal losses from our intervention: $2.8M in planned attacks prevented. Team performance: EXCEPTIONAL. This is how fraud response should be done!",
+      timestamp: "14:38:45",
+      type: "conclusion",
+      avatar: "🎯"
     }
   ];
 
@@ -340,20 +376,32 @@ REQUEST: Immediate investigation and response protocol activation.`
             >
               {agentConversation.slice(0, analysisStep + 1).map((conversation, index) => (
                 <div key={index} className="animate-fade-in">
-                  <Card>
+                  <Card className="border-0 shadow-sm bg-white/95 backdrop-blur-sm">
                     <CardContent className="p-4">
-                      <div className="flex items-start gap-3">
-                        <div className="p-2 bg-primary/10 rounded-full">
-                          <Brain className="h-4 w-4 text-primary" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between mb-2">
-                            <h4 className="font-semibold text-sm">{conversation.agent}</h4>
-                            <span className="text-xs text-muted-foreground font-mono">
-                              {conversation.timestamp}
-                            </span>
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center text-white text-lg font-bold shadow-md">
+                            {conversation.avatar}
                           </div>
-                          <p className="text-sm">{conversation.message}</p>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between mb-2">
+                            <h4 className="font-semibold text-foreground text-sm">{conversation.agent}</h4>
+                            <div className="flex items-center gap-2">
+                              <Badge 
+                                variant={conversation.type === "system" ? "destructive" : 
+                                        conversation.type === "breakthrough" ? "default" : 
+                                        conversation.type === "conclusion" ? "outline" : "secondary"}
+                                className="text-xs"
+                              >
+                                {conversation.type.toUpperCase()}
+                              </Badge>
+                              <span className="text-xs text-muted-foreground font-mono">
+                                {conversation.timestamp}
+                              </span>
+                            </div>
+                          </div>
+                          <p className="text-sm text-foreground leading-relaxed">{conversation.message}</p>
                         </div>
                       </div>
                     </CardContent>
