@@ -1,11 +1,24 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { FraudSimulation } from "@/components/FraudSimulation";
 import { FraudDashboard } from "@/components/FraudDashboard";
 import { AccountDetails } from "@/components/AccountDetails";
 import { AgentResponses } from "@/components/AgentResponses";
 import { InvestigationTimeline } from "@/components/InvestigationTimeline";
 
 const Index = () => {
+  const [showDashboard, setShowDashboard] = useState(false);
+  const [currentScenario, setCurrentScenario] = useState("");
+
+  const handleRunAnalysis = (scenario: string) => {
+    setCurrentScenario(scenario);
+    setShowDashboard(true);
+  };
+
+  if (!showDashboard) {
+    return <FraudSimulation onRunAnalysis={handleRunAnalysis} />;
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <FraudDashboard />

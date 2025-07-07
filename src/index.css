@@ -8,42 +8,42 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 240 10% 5%;
-    --foreground: 0 0% 98%;
+    --background: 220 15% 97%;
+    --foreground: 220 15% 15%;
 
-    --card: 240 8% 8%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 15%;
 
-    --popover: 240 8% 8%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 15%;
 
     --primary: 217 91% 60%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 240 5% 15%;
-    --secondary-foreground: 0 0% 90%;
+    --secondary: 220 15% 95%;
+    --secondary-foreground: 220 15% 25%;
 
-    --muted: 240 5% 12%;
-    --muted-foreground: 240 5% 65%;
+    --muted: 220 15% 94%;
+    --muted-foreground: 220 10% 50%;
 
     --accent: 267 84% 81%;
-    --accent-foreground: 240 10% 5%;
+    --accent-foreground: 220 15% 15%;
 
-    --destructive: 0 75% 65%;
+    --destructive: 350 89% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --success: 142 76% 36%;
+    --success: 142 69% 45%;
     --success-foreground: 0 0% 98%;
 
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 98%;
 
-    --border: 240 6% 20%;
-    --input: 240 6% 20%;
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
     --ring: 217 91% 60%;
 
-    /* Fraud-specific design tokens */
-    --critical: 0 75% 65%;
+    /* Updated fraud-specific design tokens */
+    --critical: 350 89% 60%;
     --critical-foreground: 0 0% 98%;
     
     --high-risk: 14 100% 57%;
@@ -52,18 +52,19 @@ All colors MUST be HSL.
     --medium-risk: 38 92% 50%;
     --medium-risk-foreground: 0 0% 98%;
     
-    --low-risk: 142 76% 36%;
+    --low-risk: 142 69% 45%;
     --low-risk-foreground: 0 0% 98%;
 
-    /* Gradients */
+    /* Updated gradients from palette */
     --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(267 84% 81%));
-    --gradient-security: linear-gradient(135deg, hsl(240 8% 8%), hsl(240 5% 15%));
-    --gradient-alert: linear-gradient(135deg, hsl(0 75% 65%), hsl(14 100% 57%));
+    --gradient-security: linear-gradient(135deg, hsl(220 15% 97%), hsl(220 15% 94%));
+    --gradient-alert: linear-gradient(135deg, hsl(350 89% 60%), hsl(14 100% 57%));
+    --gradient-sage: linear-gradient(135deg, hsl(142 69% 45%), hsl(167 60% 50%));
 
-    /* Shadows */
-    --shadow-fraud: 0 10px 30px -10px hsl(217 91% 60% / 0.3);
-    --shadow-critical: 0 10px 30px -10px hsl(0 75% 65% / 0.3);
-    --shadow-elegant: 0 4px 20px -2px hsl(240 10% 5% / 0.8);
+    /* Updated shadows */
+    --shadow-fraud: 0 10px 30px -10px hsl(217 91% 60% / 0.2);
+    --shadow-critical: 0 10px 30px -10px hsl(350 89% 60% / 0.2);
+    --shadow-elegant: 0 4px 20px -2px hsl(220 15% 15% / 0.1);
 
     --radius: 0.5rem;
 

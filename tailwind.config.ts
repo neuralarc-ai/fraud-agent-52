@@ -119,12 +119,17 @@ export default {
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
 				'gradient-security': 'var(--gradient-security)',
-				'gradient-alert': 'var(--gradient-alert)'
+				'gradient-alert': 'var(--gradient-alert)',
+				'gradient-sage': 'var(--gradient-sage)'
 			},
 			boxShadow: {
 				'fraud': 'var(--shadow-fraud)',
 				'critical': 'var(--shadow-critical)',
 				'elegant': 'var(--shadow-elegant)'
+			},
+			animationDelay: {
+				'200': '200ms',
+				'400': '400ms',
 			}
 		}
 	},
