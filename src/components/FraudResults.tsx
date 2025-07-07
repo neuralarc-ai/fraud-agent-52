@@ -3,13 +3,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, AlertTriangle, CheckCircle, Clock, Shield, Users, FileText, DollarSign, MapPin, TrendingUp } from "lucide-react";
-
 interface FraudResultsProps {
   onBack: () => void;
   scenario: string;
 }
-
-export const FraudResults = ({ onBack, scenario }: FraudResultsProps) => {
+export const FraudResults = ({
+  onBack,
+  scenario
+}: FraudResultsProps) => {
   const fraudResults = {
     status: "CONFIRMED",
     confidence: 98,
@@ -19,7 +20,6 @@ export const FraudResults = ({ onBack, scenario }: FraudResultsProps) => {
     responseTime: "2 minutes",
     recoveryProbability: 95
   };
-
   const threatIntelligence = {
     source: "Compromised Payment Processor",
     method: "Insider Knowledge Exploitation",
@@ -27,61 +27,49 @@ export const FraudResults = ({ onBack, scenario }: FraudResultsProps) => {
     geographical: "Multi-state Operation",
     timeline: "3-week planning period"
   };
-
-  const affectedAccounts = [
-    { name: "Metro Construction LLC", amount: 27000, status: "Secured", risk: "HIGH" },
-    { name: "Riverside Medical Group", amount: 43000, status: "Secured", risk: "CRITICAL" },
-    { name: "TechFlow Solutions Inc", amount: 30500, status: "Secured", risk: "CRITICAL" },
-    { name: "Lone Star Catering", amount: 27000, status: "Secured", risk: "EXTREME" }
-  ];
-
-  const responseActions = [
-    {
-      category: "Immediate Security",
-      actions: [
-        "All accounts frozen and secured",
-        "Debit cards suspended immediately",
-        "Enhanced monitoring activated",
-        "Emergency access protocols established"
-      ],
-      status: "Completed",
-      timestamp: "14:25:00"
-    },
-    {
-      category: "Legal & Compliance",
-      actions: [
-        "FBI financial crimes unit notified",
-        "Suspicious Activity Report (SAR) filed",
-        "Documentation preserved and secured",
-        "Regulatory authorities contacted"
-      ],
-      status: "In Progress",
-      timestamp: "14:30:00"
-    },
-    {
-      category: "Customer Protection",
-      actions: [
-        "All customers contacted and verified",
-        "Business operations continuity maintained",
-        "Recovery process initiated",
-        "Enhanced security measures implemented"
-      ],
-      status: "Ongoing",
-      timestamp: "14:35:00"
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
+  const affectedAccounts = [{
+    name: "Metro Construction LLC",
+    amount: 27000,
+    status: "Secured",
+    risk: "HIGH"
+  }, {
+    name: "Riverside Medical Group",
+    amount: 43000,
+    status: "Secured",
+    risk: "CRITICAL"
+  }, {
+    name: "TechFlow Solutions Inc",
+    amount: 30500,
+    status: "Secured",
+    risk: "CRITICAL"
+  }, {
+    name: "Lone Star Catering",
+    amount: 27000,
+    status: "Secured",
+    risk: "EXTREME"
+  }];
+  const responseActions = [{
+    category: "Immediate Security",
+    actions: ["All accounts frozen and secured", "Debit cards suspended immediately", "Enhanced monitoring activated", "Emergency access protocols established"],
+    status: "Completed",
+    timestamp: "14:25:00"
+  }, {
+    category: "Legal & Compliance",
+    actions: ["FBI financial crimes unit notified", "Suspicious Activity Report (SAR) filed", "Documentation preserved and secured", "Regulatory authorities contacted"],
+    status: "In Progress",
+    timestamp: "14:30:00"
+  }, {
+    category: "Customer Protection",
+    actions: ["All customers contacted and verified", "Business operations continuity maintained", "Recovery process initiated", "Enhanced security measures implemented"],
+    status: "Ongoing",
+    timestamp: "14:35:00"
+  }];
+  return <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
       {/* Header with Back Button */}
       <div className="bg-gradient-alert p-6 shadow-critical">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center gap-4 mb-6">
-            <Button 
-              onClick={onBack}
-              variant="outline"
-              className="border-white/20 text-white hover:bg-white/10"
-            >
+            <Button onClick={onBack} variant="outline" className="border-white/20 text-white bg-red-400 hover:bg-red-300">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Simulation
             </Button>
@@ -230,15 +218,11 @@ export const FraudResults = ({ onBack, scenario }: FraudResultsProps) => {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {affectedAccounts.map((account, index) => (
-                  <div key={index} className="p-4 border rounded-lg">
+                {affectedAccounts.map((account, index) => <div key={index} className="p-4 border rounded-lg">
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="font-semibold text-sm">{account.name}</h4>
                       <div className="flex items-center gap-2">
-                        <Badge 
-                          variant={account.risk === "EXTREME" ? "destructive" : account.risk === "CRITICAL" ? "destructive" : "secondary"}
-                          className="text-xs"
-                        >
+                        <Badge variant={account.risk === "EXTREME" ? "destructive" : account.risk === "CRITICAL" ? "destructive" : "secondary"} className="text-xs">
                           {account.risk}
                         </Badge>
                         <Badge variant="outline" className="text-xs bg-success/10 text-success">
@@ -250,8 +234,7 @@ export const FraudResults = ({ onBack, scenario }: FraudResultsProps) => {
                       <span className="text-sm text-muted-foreground">Fraudulent Amount</span>
                       <span className="font-bold text-critical">${account.amount.toLocaleString()}</span>
                     </div>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </CardContent>
           </Card>
@@ -268,54 +251,38 @@ export const FraudResults = ({ onBack, scenario }: FraudResultsProps) => {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {responseActions.map((category, index) => (
-                <div key={index} className="space-y-3">
+              {responseActions.map((category, index) => <div key={index} className="space-y-3">
                   <div className="flex items-center justify-between">
                     <h4 className="font-semibold text-lg">{category.category}</h4>
                     <div className="flex items-center gap-2">
-                      <Badge 
-                        variant={category.status === "Completed" ? "outline" : category.status === "In Progress" ? "secondary" : "destructive"}
-                        className={category.status === "Completed" ? "bg-success/10 text-success" : ""}
-                      >
+                      <Badge variant={category.status === "Completed" ? "outline" : category.status === "In Progress" ? "secondary" : "destructive"} className={category.status === "Completed" ? "bg-success/10 text-success" : ""}>
                         {category.status}
                       </Badge>
                       <span className="text-xs text-muted-foreground font-mono">{category.timestamp}</span>
                     </div>
                   </div>
                   <div className="space-y-2">
-                    {category.actions.map((action, actionIndex) => (
-                      <div key={actionIndex} className="flex items-start gap-2 text-sm">
+                    {category.actions.map((action, actionIndex) => <div key={actionIndex} className="flex items-start gap-2 text-sm">
                         <CheckCircle className="h-4 w-4 text-success mt-0.5 flex-shrink-0" />
                         <span>{action}</span>
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </CardContent>
         </Card>
 
         {/* Action Buttons */}
         <div className="flex items-center justify-center gap-4 pt-6">
-          <Button 
-            onClick={onBack} 
-            size="lg" 
-            className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-fraud"
-          >
+          <Button onClick={onBack} size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-fraud">
             <ArrowLeft className="h-5 w-5 mr-2" />
             Run Another Analysis
           </Button>
-          <Button 
-            variant="outline" 
-            size="lg"
-            className="border-primary text-primary hover:bg-primary/10 hover:text-primary shadow-sm"
-          >
+          <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary/10 hover:text-primary shadow-sm">
             <FileText className="h-5 w-5 mr-2" />
             Export Report
           </Button>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
