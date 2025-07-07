@@ -52,6 +52,30 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				success: {
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))'
+				},
+				warning: {
+					DEFAULT: 'hsl(var(--warning))',
+					foreground: 'hsl(var(--warning-foreground))'
+				},
+				critical: {
+					DEFAULT: 'hsl(var(--critical))',
+					foreground: 'hsl(var(--critical-foreground))'
+				},
+				'high-risk': {
+					DEFAULT: 'hsl(var(--high-risk))',
+					foreground: 'hsl(var(--high-risk-foreground))'
+				},
+				'medium-risk': {
+					DEFAULT: 'hsl(var(--medium-risk))',
+					foreground: 'hsl(var(--medium-risk-foreground))'
+				},
+				'low-risk': {
+					DEFAULT: 'hsl(var(--low-risk))',
+					foreground: 'hsl(var(--low-risk-foreground))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -88,7 +112,19 @@ export default {
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-critical': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+				'fade-in': 'fadeIn 0.5s ease-in-out'
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-security': 'var(--gradient-security)',
+				'gradient-alert': 'var(--gradient-alert)'
+			},
+			boxShadow: {
+				'fraud': 'var(--shadow-fraud)',
+				'critical': 'var(--shadow-critical)',
+				'elegant': 'var(--shadow-elegant)'
 			}
 		}
 	},
