@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Play, Copy, MessageSquare, AlertTriangle, Brain, Users, RefreshCw, CheckCircle, XCircle } from "lucide-react";
+import { Play, Copy, MessageSquare, AlertTriangle, Brain, Users, RefreshCw, CheckCircle, XCircle, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface SimulationProps {
@@ -17,7 +17,15 @@ export const FraudSimulation = ({ onRunAnalysis }: SimulationProps) => {
   const [showAgentDialog, setShowAgentDialog] = useState(false);
   const [analysisStep, setAnalysisStep] = useState(0);
   const [showResults, setShowResults] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  // Auto-scroll to bottom when new messages appear
+  useEffect(() => {
+    if (scrollRef.current && showAgentDialog) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [analysisStep, showAgentDialog]);
 
   const sampleScenarios = [
     {
@@ -172,19 +180,28 @@ REQUEST: Immediate investigation and response protocol activation.`
   };
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="text-center space-y-4">
-          <div className="flex items-center justify-center gap-3">
-            <div className="p-3 bg-primary/10 rounded-full">
-              <Brain className="h-8 w-8 text-primary" />
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
+      <div className="max-w-7xl mx-auto p-6 space-y-8">
+        {/* Enhanced Header */}
+        <div className="relative overflow-hidden bg-gradient-primary p-8 rounded-2xl shadow-fraud">
+          <div className="absolute inset-0 opacity-10" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E")`
+          }} />
+          
+          <div className="relative z-10 text-center space-y-6">
+            <div className="flex items-center justify-center gap-4">
+              <div className="p-4 bg-white/20 backdrop-blur-sm rounded-2xl shadow-elegant">
+                <Brain className="h-12 w-12 text-white" />
+              </div>
+              <div className="text-left">
+                <h1 className="text-4xl font-bold text-white mb-2">AI Fraud Detection Simulation</h1>
+                <p className="text-xl text-white/90">Experience next-generation fraud prevention in action</p>
+              </div>
             </div>
-            <h1 className="text-3xl font-bold text-foreground">Fraud Detection Simulation</h1>
+            <p className="text-lg text-white/80 max-w-3xl mx-auto leading-relaxed">
+              Test our advanced AI-powered fraud detection system with realistic scenarios. Watch as multiple specialized agents collaborate in real-time to investigate suspicious activities, analyze patterns, and provide comprehensive security responses.
+            </p>
           </div>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Test our AI-powered fraud detection system with realistic scenarios. Watch as multiple agents collaborate to investigate suspicious activities and provide comprehensive analysis.
-          </p>
         </div>
 
         {/* Sample Scenarios */}
@@ -305,18 +322,22 @@ REQUEST: Immediate investigation and response protocol activation.`
 
         {/* Agent Conversation Dialog */}
         <Dialog open={showAgentDialog} onOpenChange={setShowAgentDialog}>
-          <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-            <DialogHeader>
+          <DialogContent className="max-w-5xl max-h-[85vh] flex flex-col">
+            <DialogHeader className="flex-shrink-0">
               <DialogTitle className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-primary" />
-                AI Agents Collaborating
+                AI Fraud Detection Team - Live Analysis
               </DialogTitle>
               <DialogDescription>
-                Watch as our fraud detection team analyzes the scenario in real-time
+                Watch our specialized agents collaborate in real-time to analyze fraud patterns and coordinate response
               </DialogDescription>
             </DialogHeader>
             
-            <div className="space-y-4">
+            <div 
+              ref={scrollRef}
+              className="flex-1 overflow-y-auto space-y-4 pr-2 max-h-[60vh]"
+              style={{ scrollBehavior: 'smooth' }}
+            >
               {agentConversation.slice(0, analysisStep + 1).map((conversation, index) => (
                 <div key={index} className="animate-fade-in">
                   <Card>
@@ -442,7 +463,16 @@ REQUEST: Immediate investigation and response protocol activation.`
                       className="bg-white text-primary hover:bg-white/90"
                     >
                       <AlertTriangle className="h-5 w-5 mr-2" />
-                      View Full Investigation Dashboard
+                      View Investigation Dashboard
+                    </Button>
+                    <Button 
+                      onClick={() => window.open("/", "_blank")}
+                      variant="outline"
+                      size="lg"
+                      className="border-white/20 text-white hover:bg-white/10"
+                    >
+                      <ExternalLink className="h-5 w-5 mr-2" />
+                      Open in New Window
                     </Button>
                     <Button 
                       onClick={resetAnalysis}
@@ -451,7 +481,7 @@ REQUEST: Immediate investigation and response protocol activation.`
                       className="border-white/20 text-white hover:bg-white/10"
                     >
                       <RefreshCw className="h-5 w-5 mr-2" />
-                      Start New Analysis
+                      New Analysis
                     </Button>
                   </div>
                 </div>
